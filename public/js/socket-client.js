@@ -7,19 +7,19 @@ const btnEnviar = document.querySelector('#btnEnviar');
 const socket = io();
 
 socket.on('connect', () => {
-    console.log('Conectado al servidor');
+    console.log('Cliente: Conectado al servidor');
     lblOffline.style.display = 'none';
     lblOnline.style.display = '';
 });
 
 socket.on('disconnect', () => {
-    console.log('Desconectado del servidor');
+    console.log('Cliente: Desconectado del servidor');
     lblOnline.style.display = 'none';
     lblOffline.style.display = '';
 });
 
 socket.on('enviar-mensaje', (payload) => {
-    console.log(payload);
+    console.log("Cliente: Recibiendo del servidor - ", payload);
 });
 
 btnEnviar.addEventListener('click', () => {
@@ -30,6 +30,6 @@ btnEnviar.addEventListener('click', () => {
         fecha: new Date().getTime()
     };
     socket.emit('enviar-mensaje', payload, (id) => {
-        console.log('Desde el server', id); // Retroalimentación desde el servidor
+        console.log('Cliente: Retroalimentación del servidor - ', id); // Retroalimentación desde el servidor, tercer parametro (id)
     });
 });
